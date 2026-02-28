@@ -2,7 +2,7 @@ const express = require('express');
 const authRoutes = require('./routes/auth/index');
 const app = express();
 const port = 3000;
-
+require('dotenv').config();
 
 //Middleware
 app.use(express.json());
