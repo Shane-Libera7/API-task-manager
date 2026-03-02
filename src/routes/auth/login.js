@@ -3,6 +3,7 @@ const db = require('../../db');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const limiter = require('../../middleware/limiter');
 
 
 //verify Log in attempt 
@@ -20,7 +21,7 @@ async function verifyCredentials(email, password){
 
 
 //Route 
-router.post('/', async (req, res) => {
+router.post('/', limiter, async (req, res) => {
     console.log('1. hit the route');
     console.log('body:', req.body);
     

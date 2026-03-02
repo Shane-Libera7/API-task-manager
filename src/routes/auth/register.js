@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const db = require('../../db');
 const router = express.Router();
-
+const limiter = require('../../middleware/limiter')
 //Validation logic
 const emailIsValid = (email) => {
     return /\S+@\S+\.\S+/.test(email);
@@ -17,7 +17,7 @@ const passwordIsValid = (password) => {
 
 
 
-router.post('/', async (req,res) => {
+router.post('/', limiter, async (req,res) => {
     console.log('1. hit the route');
     console.log('body:', req.body);
     

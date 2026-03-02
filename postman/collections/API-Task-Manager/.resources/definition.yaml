@@ -1,0 +1,15 @@
+$kind: collection
+name: API Task Manager
+variables:
+  - key: baseUrl
+    value: 'http://localhost:3000'
+    type: default
+    enabled: true
+  - key: accessToken
+    value: ''
+    type: default
+    enabled: true
+  - key: refreshToken
+    value: ''
+    type: default
+    enabled: true

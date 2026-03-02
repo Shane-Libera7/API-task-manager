@@ -1,0 +1,15 @@
+$kind: http-request
+name: Get Current User
+method: GET
+url: "{{baseUrl}}/auth/me"
+body:
+  type: json
+  content: |-
+    {
+        
+    }
+order: 5000
+auth:
+  type: bearer
+  credentials:
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc3MjQ2NTM2OSwiZXhwIjoxNzcyNDY2MjY5fQ.EP6kxPzgXcxk3KaIHRmgCnMtiBU8zfKKcFS9AwXUgz0
