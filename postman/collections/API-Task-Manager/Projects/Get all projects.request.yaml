@@ -1,5 +1,5 @@
 $kind: http-request
-name: New Request
+name: Get all projects
 url: ""
 method: GET
 order: 2769383891757529

@@ -42,6 +42,42 @@ router.get('/', async (req, res) => {
 })
 
 
+    //Get a singular project
+    router.get('/:id', async (req, res) =>{
+        const userId = req.userId;
+        const projectId = req.params.id;
+
+        try{
+            const project = await db('projects').select(['id', 'name', 'created_at']).where({ id: projectId, user_id: userId }).first();
+
+            if(!project){
+                return res.status(404).json({ error: 'Project not found'});
+            }
+
+            
+            return res.status(200).json(project);
+
+
+        } catch(e){
+            console.log(e);
+            return res.status(500).json({ error: 'Something went wrong'});
+
+        }
+    })
+
+
+
+    //Update Project Name
+
+    
+
+
+
+
+
+    //Delete Project
+
+
 
 
 module.exports = router;
