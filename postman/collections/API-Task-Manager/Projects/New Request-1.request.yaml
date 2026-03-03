@@ -1,0 +1,15 @@
+$kind: http-request
+name: New Request
+url: http://localhost:3000/projects
+method: POST
+headers:
+  - key: Authorization
+    value: Bearer
+      eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc3MjU0NDg0NywiZXhwIjoxNzcyNTQ1NzQ3fQ.G5lNXpkKn2XznLfYxMRYbMQ3WfEP5M5Y3qEWBjQFt8U
+body:
+  type: json
+  content: |-
+    {
+        "projectName":"become Green Arrow" 
+    }
+order: 1772544784284

@@ -1,11 +1,12 @@
 $kind: http-request
 name: Refresh Token
 method: POST
-url: '{{baseUrl}}/auth/refresh'
+url: "{{baseUrl}}/auth/refresh"
+auth:
+  type: jwt
 order: 3000
 headers:
-  - key: Content-Type
-    value: application/json
+  Content-Type: application/json
 body:
   type: json
   content: |-
@@ -14,7 +15,9 @@ body:
     }
 scripts:
   - type: afterResponse
-    language: text/javascript
-    code: |-
+    code: >-
       const res = pm.response.json();
-      if (res.accessToken) pm.collectionVariables.set("accessToken", res.accessToken);
+
+      if (res.accessToken) pm.collectionVariables.set("accessToken",
+      res.accessToken);
+    language: text/javascript
