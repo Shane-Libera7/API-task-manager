@@ -68,7 +68,25 @@ router.get('/', async (req, res) => {
 
 
     //Update Project Name
+    router.patch('/:id', async (req, res) => {
+        const projectId = req.params.id;
+        const { name } = req.body;
+        const userId = req.userId;
 
+        try{
+
+            const updatedProject = await db('projects').where({ id: projectId, user_id: userId }).update({ name: name}).returning(['id', 'name', 'created_at']);
+            if (!updatedProject.length){
+                return res.status(404).json({ error: 'Project not found'});
+            }
+            return res.status(200).json(updatedProject);
+
+
+        } catch(e){
+            console.log(e);
+            return res.status(500).json({ error: 'Something went wrong'});
+        }
+    })
     
 
 
@@ -76,6 +94,28 @@ router.get('/', async (req, res) => {
 
 
     //Delete Project
+
+    router.delete('/:id', async (req, res) => {
+        const projectId = req.params.id;
+        const userId = req.userId;
+
+        try{
+
+            const project = await db('projects').where({ id: projectId, user_id: userId}).first();
+
+            if (project){
+                await db('tasks').where('project_id', projectId).delete();
+                await db('projects').where({ id: projectId, user_id: userId}).delete();
+        
+                return res.status(204).send();
+            } else{
+                return res.status(404).json({ error: 'Project not found'});
+            }
+        } catch(e){
+            console.log(e);
+            return res.status(500).json({ error: 'Something went wrong'});
+        }
+    })
 
 
 
