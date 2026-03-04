@@ -1,0 +1,5 @@
+$kind: http-request
+name: Delete Task
+url: ""
+method: GET
+order: 4496404200443487

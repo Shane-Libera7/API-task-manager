@@ -149,7 +149,37 @@ router.patch('/:id', async (req, res) => {
 
 
 
-//
+//Delete a Task
+
+
+router.delete('/:id', async (req, res) => {
+    const projectId = req.params.projectId;
+    const taskId = req.params.id;
+    const userId = req.userId;
+
+    try{
+        const valid = await verifyProjectOwnership(projectId, userId);
+        if(!valid){
+            return res.status(404).json({ error: 'Project is needed to assign task to it'});
+        }
+
+        const task = await db('tasks').where({ id: taskId, project_id: projectId }).first();
+        if (task){
+            await db('tasks').where({ id: taskId, project_id: projectId }).delete();
+            return res.status(204).send();
+        } else{
+            return res.status(404).json({ error: 'Task not found'});
+        }
+
+    }catch(e){
+        console.log(e);
+        return res.status(500).json({ error: 'Something went wrong' });
+    }
+})
+
+
+
+
 
 
 
