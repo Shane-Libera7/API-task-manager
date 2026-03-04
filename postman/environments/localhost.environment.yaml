@@ -5,4 +5,4 @@ values:
     enabled: true
   - key: accessToken
     value: ''
-    enabled: true
+    enabled: false
