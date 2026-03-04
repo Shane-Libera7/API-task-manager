@@ -1,5 +1,5 @@
 $kind: http-request
-name: New Request
+name: Delete project
 url: ""
 method: GET
 order: 4497969888621712

@@ -1,6 +1,7 @@
 const express = require('express');
 const authRoutes = require('./routes/auth/index');
 const projectRoutes = require('./routes/projects/index');
+const taskRoutes = require('./routes/projects/tasks/index');
 const app = express();
 const port = 3000;
 require('dotenv').config();
@@ -21,6 +22,9 @@ app.use('/auth', authRoutes);
 
 //Project routes
 app.use('/projects', projectRoutes);
+
+//Task routes
+app.use('/:projectId/tasks', taskRoutes);
 
 
 
