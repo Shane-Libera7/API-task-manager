@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const db = require('../../db');
 const authMiddleware = require('../../middleware/auth');
+const { createProjectSchema, patchProjectSchema } = require('../../schemas/projects');
+
 
 
 //Declare Middleware
@@ -13,6 +15,11 @@ router.post('/', async (req, res) => {
     const { projectName } = req.body;
 
     try {
+        //Input Validation 
+        const inputValidation = createProjectSchema.safeParse(req.body);
+        if (inputValidation.success === false){
+            return res.status(400).json(inputValidation.error);
+        }
         const project = {
         user_id: req.userId,
         name: projectName
@@ -74,6 +81,14 @@ router.get('/', async (req, res) => {
         const userId = req.userId;
 
         try{
+            //Input Validation
+            const inputValidation = patchProjectSchema.safeParse(req.body);
+            if (inputValidation.success === false){
+                return res.status(400).json(inputValidation.error);
+            }
+
+
+
 
             const updatedProject = await db('projects').where({ id: projectId, user_id: userId }).update({ name: name}).returning(['id', 'name', 'created_at']);
             if (!updatedProject.length){

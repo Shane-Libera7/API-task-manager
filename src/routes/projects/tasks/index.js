@@ -2,6 +2,8 @@ const express = require('express');
 const db = require('../../../db');
 const router = express.Router({ mergeParams: true });
 const authMiddleware = require('../../../middleware/auth');
+const { createTasksSchema, patchTasksSchema } = require('../../../schemas/tasks');
+const { error } = require('node:console');
 
 
 //Authentifcation and enforcement of Ownership
@@ -21,6 +23,10 @@ router.post('/', async (req, res) => {
     const userId = req.userId;
 
     try{
+        const inputValidation = createTasksSchema.safeParse(req.body);
+        if (inputValidation.success === false){
+            return res.status(400).json(inputValidation.error);
+        }
         const valid = await verifyProjectOwnership(projectId, userId);
         if(!valid){
             return res.status(404).json({ error: 'Project is needed to assign task to it'});
@@ -111,6 +117,13 @@ router.patch('/:id', async (req, res) => {
     let update = {};
     const taskId = req.params.id;
     try{
+        //Input Validation
+        const inputValidation = patchTasksSchema.safeParse(req.body);
+        if (inputValidation.success === false){
+            return res.status(400).json(inputValidation.error);
+        }
+
+        
         const valid = await verifyProjectOwnership(projectId, userId);
         if(!valid){
             return res.status(404).json({ error: 'Project is needed to assign task to it'});
