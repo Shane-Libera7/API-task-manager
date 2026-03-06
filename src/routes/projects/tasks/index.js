@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
 
     } catch(e) {
         console.log(e);
-        return res.status(500).json({ error: 'Something went wrong'});
+        next(e);
     }
     
 })
@@ -74,7 +74,7 @@ router.get('/', async (req, res) => {
 
     }catch(e){
         console.log(e);
-        return res.status(500).json({ error: 'Something went wrong' });
+        next(e);
     }
 });
 
@@ -103,7 +103,7 @@ router.get('/:id', async (req, res) => {
 
     }catch(e){
         console.log(e);
-        return res.status(500).json({ error:'Something went wrong'});
+        next(e);
     }
 })
 
@@ -154,7 +154,7 @@ router.patch('/:id', async (req, res) => {
 
     }catch(e){
         console.log(e);
-        res.status(500).json({ error: 'Something went wrong'});
+        next(e);
     }
 
 })
@@ -186,7 +186,7 @@ router.delete('/:id', async (req, res) => {
 
     }catch(e){
         console.log(e);
-        return res.status(500).json({ error: 'Something went wrong' });
+        next(e);
     }
 })
 
@@ -224,7 +224,7 @@ router.patch('/:id/complete', async (req, res) => {
 
     }catch(e){
         console.log(e);
-        return res.status(500).json({ error: 'Something went wrong'});
+        next(e);
     }
 })
 

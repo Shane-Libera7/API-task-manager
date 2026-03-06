@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
 
     } catch(e){
         console.log(e);
-        return res.status(500).json({ error: 'Something went wrong'});
+        next(e);
     }
 
 })
@@ -43,7 +43,7 @@ router.get('/', async (req, res) => {
         return res.status(200).json(projects);
     } catch(e){
         console.log(e);
-        return res.status(500).json({ error: 'Something went wrong'});
+        next(e);
     }
 
 })
@@ -67,7 +67,7 @@ router.get('/', async (req, res) => {
 
         } catch(e){
             console.log(e);
-            return res.status(500).json({ error: 'Something went wrong'});
+            next(e);
 
         }
     })
@@ -87,9 +87,7 @@ router.get('/', async (req, res) => {
                 return res.status(400).json(inputValidation.error);
             }
 
-
-
-
+            
             const updatedProject = await db('projects').where({ id: projectId, user_id: userId }).update({ name: name}).returning(['id', 'name', 'created_at']);
             if (!updatedProject.length){
                 return res.status(404).json({ error: 'Project not found'});
@@ -99,7 +97,7 @@ router.get('/', async (req, res) => {
 
         } catch(e){
             console.log(e);
-            return res.status(500).json({ error: 'Something went wrong'});
+            next(e);
         }
     })
     
@@ -128,7 +126,7 @@ router.get('/', async (req, res) => {
             }
         } catch(e){
             console.log(e);
-            return res.status(500).json({ error: 'Something went wrong'});
+            next(e);
         }
     })
 
