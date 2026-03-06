@@ -58,16 +58,18 @@ router.post('/', async (req, res) => {
 
 
 //Get all tasks 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
     const userId = req.userId;
     const projectId = req.params.projectId;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
     try{
         const valid = await verifyProjectOwnership(projectId, userId);
         if(!valid){
             return res.status(404).json({ error: 'Project is needed to assign task to it'});
         }
 
-        const tasks = await db('tasks').select(['id', 'title', 'description', 'priority', 'due_date', 'completed', 'created_at']).where('project_id', projectId);
+        const tasks = await db('tasks').select(['id', 'title', 'description', 'priority', 'due_date', 'completed', 'created_at']).where('project_id', projectId).limit(limit).offset((page - 1) * limit);
         return res.status(200).json(tasks);
 
 

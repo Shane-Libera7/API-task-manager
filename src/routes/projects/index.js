@@ -38,8 +38,10 @@ router.post('/', async (req, res) => {
 //Get all projects of user
 router.get('/', async (req, res) => {
     const userId = req.userId;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
     try {
-        const projects = await db('projects').select(['id', 'name', 'created_at']).where('user_id', userId);
+        const projects = await db('projects').select(['id', 'name', 'created_at']).where('user_id', userId).limit(limit).offset((page - 1) * limit);
         return res.status(200).json(projects);
     } catch(e){
         console.log(e);
