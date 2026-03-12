@@ -1,5 +1,5 @@
 $kind: http-request
-name: New Request
+name: Create Project
 url: http://localhost:3000/projects
 method: POST
 headers:
