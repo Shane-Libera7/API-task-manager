@@ -8,6 +8,21 @@ describe('auth routes', () => {
     let accessToken;
 
 
+    //Delete user before registering 
+
+    beforeAll(async () => {
+        const user = await db('users').where('email', 'test@test.com').first();
+        if (user){
+            const projects = await db('projects').where('user_id', user.id).select('id');
+            const projectIds = projects.map(p => p.id);
+            await db('tasks').whereIn('project_id', projectIds).delete();
+            await db('refresh_tokens').where('user_id', user.id).delete();
+            await db('projects').where('user_id', user.id).delete();
+            await db('users').where('id', user.id).delete();
+        }
+    });
+
+
     //Register
     it('should register a new user', async () => {
         const response = await request(app).post('/auth/register').send({ email: 'test@test.com', password: 'password123' });
@@ -51,7 +66,12 @@ describe('auth routes', () => {
 
 
     afterAll(async () => {
-        await db('users').where('email', 'test@test.com').delete();
+        const user = await db('users').where('email', 'test@test.com').first();
+    if (user) {
+        await db('refresh_tokens').where('user_id', user.id).delete();
+        await db('projects').where('user_id', user.id).delete();
+        await db('users').where('id', user.id).delete();
+    }
     });
 
 

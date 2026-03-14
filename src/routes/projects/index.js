@@ -3,6 +3,7 @@ const router = express.Router();
 const db = require('../../db');
 const authMiddleware = require('../../middleware/auth');
 const { createProjectSchema, patchProjectSchema } = require('../../schemas/projects');
+const tasksRouter = require('./tasks/index');
 
 
 
@@ -12,7 +13,7 @@ router.use(authMiddleware);
 // Create Project Route
 
 router.post('/', async (req, res) => {
-    const { projectName } = req.body;
+    const { name } = req.body;
 
     try {
         //Input Validation 
@@ -22,7 +23,7 @@ router.post('/', async (req, res) => {
         }
         const project = {
         user_id: req.userId,
-        name: projectName
+        name: name
         };
 
         const [newProject] = await db('projects').insert(project).returning(['id', 'name', 'created_at']);
@@ -134,5 +135,6 @@ router.get('/', async (req, res) => {
 
 
 
+router.use('/:projectId/tasks', tasksRouter);
 
 module.exports = router;

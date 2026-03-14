@@ -10,7 +10,9 @@ const { error } = require('node:console');
 router.use(authMiddleware);
 
 async function verifyProjectOwnership(projectId, userId){
+    console.log('projectId:', projectId, 'userId:', userId);
     const project = await db('projects').where({ id: projectId, user_id: userId }).first();
+    console.log('project found:', projectId);
     return project ? project: null;
 }
 
