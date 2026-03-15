@@ -6,6 +6,37 @@ const jwt = require('jsonwebtoken');
 const limiter = require('../../middleware/limiter');
 
 
+//Swagger 
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     summary: Log in a user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login successful, returns access and refresh tokens
+ *       401:
+ *         description: Invalid credentials
+ *       500:
+ *         description: Something went wrong
+ */
+
+
+
+
+
+
 //verify Log in attempt 
 async function verifyCredentials(email, password){
     const user = await db('users').where({ email }).first();

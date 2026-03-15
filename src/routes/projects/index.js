@@ -12,6 +12,38 @@ router.use(authMiddleware);
 
 // Create Project Route
 
+
+
+//Swagger
+/**
+ * @swagger
+ * /projects:
+ *   post:
+ *     summary: Create a new project
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Project created successfully
+ *       400:
+ *         description: Invalid input
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Something went wrong
+ */
+
+
+
 router.post('/', async (req, res) => {
     const { name } = req.body;
 
@@ -37,6 +69,40 @@ router.post('/', async (req, res) => {
 })
 
 //Get all projects of user
+
+//Swagger
+/**
+ * @swagger
+ * /projects:
+ *   get:
+ *     summary: Get all projects for the authenticated user
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: Page number
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Number of results per page
+ *     responses:
+ *       200:
+ *         description: List of projects
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Something went wrong
+ */
+
+
+
+
+
+
 router.get('/', async (req, res) => {
     const userId = req.userId;
     const page = parseInt(req.query.page) || 1;
@@ -53,6 +119,39 @@ router.get('/', async (req, res) => {
 
 
     //Get a singular project
+
+    //Swagger
+    /**
+ * @swagger
+ * /projects/{id}:
+ *   get:
+ *     summary: Get a single project by ID
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Project ID
+ *     responses:
+ *       200:
+ *         description: Project found
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Project not found
+ *       500:
+ *         description: Something went wrong
+ */
+
+
+
+
+
+
+
     router.get('/:id', async (req, res) =>{
         const userId = req.userId;
         const projectId = req.params.id;

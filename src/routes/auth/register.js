@@ -2,7 +2,39 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const db = require('../../db');
 const router = express.Router();
-const limiter = require('../../middleware/limiter')
+const limiter = require('../../middleware/limiter');
+
+//Swagger Doc
+/**
+ * @swagger
+ * /auth/register:
+ *   post:
+ *     summary: Register a new user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: User created successfully
+ *       400:
+ *         description: Email already in use
+ *       500:
+ *         description: Something went wrong
+ */
+
+
+
+
+
+
 //Validation logic
 const emailIsValid = (email) => {
     return /\S+@\S+\.\S+/.test(email);

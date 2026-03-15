@@ -6,6 +6,8 @@ describe('project routes', () => {
     let refreshToken;
     let accessToken;
     let projectId;
+    let secondRefreshToken;
+    let secondAccessToken;
     //Register user to get Tokens
 
     
@@ -53,6 +55,36 @@ describe('project routes', () => {
         expect(response.status).toBe(200);
         expect(Array.isArray(response.body)).toBe(true);
         expect(response.body.some(p => p.id === projectId)).toBe(true);
+
+    })
+
+
+
+    //Forbid access to other users projects 
+    
+    
+    it('should stop a user from accessing projects of another user', async () => {
+        //Create & log in to 2nd user
+        await request(app).post('/auth/register').send({ email: 'test22@test.com', password: 'password12367' });
+
+        const resp = await request(app).post('/auth/login').send({ email: 'test22@test.com', password: 'password12367' });
+
+        secondAccessToken = resp.body.accessToken;
+        secondRefreshToken = resp.body.refreshToken;
+
+
+        // Attemp to access User 1's Account 
+
+        const response = await request(app).get(`/projects/${projectId}`).set('Authorization', `Bearer ${secondAccessToken}`);
+        expect(response.status).toBe(404);
+
+
+        //Clean up database 
+        const user2 = await db('users').where('email', 'test22@test.com').first();
+        await db('refresh_tokens').where('user_id', user2.id).delete();
+        await db('users').where('id', user2.id).delete();
+
+
 
     })
 
