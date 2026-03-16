@@ -1,16 +1,35 @@
-version: '3.8'
+
 
 services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    command: sh -c "npx knex migrate:latest && npm start"
+    
+    
   db:
     image: postgres:15
     ports:
-      - "5432:5432"
+        - "5432:5432"
     environment: 
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: password
       POSTGRES_DB: task_manager
     volumes:
-      - pgdata:/var/lib/postgresql/data
+        - pgdata:/var/lib/postgresql/data
 
 volumes:
   pgdata:
+
+
+
