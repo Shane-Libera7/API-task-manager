@@ -6,11 +6,12 @@ const errorHandler = require('../src/middleware/errorHandler');
 const app = express();
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const helmet = require('helmet');
 require('dotenv').config();
 
 //Middleware
 app.use(express.json());
-
+app.use(helmet());
 
 //Swagger
 

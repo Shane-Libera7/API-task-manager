@@ -62,7 +62,6 @@ router.post('/', async (req, res) => {
         return res.status(201).json(newProject);
 
     } catch(e){
-        console.log(e);
         next(e);
     }
 
@@ -111,7 +110,6 @@ router.get('/', async (req, res) => {
         const projects = await db('projects').select(['id', 'name', 'created_at']).where('user_id', userId).limit(limit).offset((page - 1) * limit);
         return res.status(200).json(projects);
     } catch(e){
-        console.log(e);
         next(e);
     }
 
@@ -168,7 +166,6 @@ router.get('/', async (req, res) => {
 
 
         } catch(e){
-            console.log(e);
             next(e);
 
         }
@@ -198,7 +195,6 @@ router.get('/', async (req, res) => {
 
 
         } catch(e){
-            console.log(e);
             next(e);
         }
     })
@@ -227,7 +223,6 @@ router.get('/', async (req, res) => {
                 return res.status(404).json({ error: 'Project not found'});
             }
         } catch(e){
-            console.log(e);
             next(e);
         }
     })

@@ -50,8 +50,6 @@ const passwordIsValid = (password) => {
 
 
 router.post('/', limiter, async (req,res) => {
-    console.log('1. hit the route');
-    console.log('body:', req.body);
     
     const { email, password } = req.body;
 
@@ -82,7 +80,6 @@ router.post('/', limiter, async (req,res) => {
             return res.status(400).json({ error: 'Invalid email or password' });
         }
     } catch(e) {
-        console.log(e);
         next(e);
     }
 

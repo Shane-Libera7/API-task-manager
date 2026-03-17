@@ -53,8 +53,6 @@ async function verifyCredentials(email, password){
 
 //Route 
 router.post('/', limiter, async (req, res) => {
-    console.log('1. hit the route');
-    console.log('body:', req.body);
     
     const { email, password } = req.body;
 
@@ -90,7 +88,6 @@ router.post('/', limiter, async (req, res) => {
 
 
     } catch(e) {
-        console.log(e);
         next(e);
 
     }

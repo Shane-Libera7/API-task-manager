@@ -49,7 +49,6 @@ router.post('/', async (req, res) => {
         return res.status(201).json(newTask);
 
     } catch(e) {
-        console.log(e);
         next(e);
     }
     
@@ -77,7 +76,6 @@ router.get('/', async (req, res, next) => {
 
 
     }catch(e){
-        console.log(e);
         next(e);
     }
 });
@@ -106,7 +104,6 @@ router.get('/:id', async (req, res) => {
         return res.status(200).json(task);
 
     }catch(e){
-        console.log(e);
         next(e);
     }
 })
@@ -157,7 +154,6 @@ router.patch('/:id', async (req, res) => {
 
 
     }catch(e){
-        console.log(e);
         next(e);
     }
 
@@ -189,7 +185,6 @@ router.delete('/:id', async (req, res) => {
         }
 
     }catch(e){
-        console.log(e);
         next(e);
     }
 })
@@ -227,7 +222,6 @@ router.patch('/:id/complete', async (req, res) => {
 
 
     }catch(e){
-        console.log(e);
         next(e);
     }
 })
