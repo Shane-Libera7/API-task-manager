@@ -9,6 +9,10 @@ const swaggerUi = require('swagger-ui-express');
 const helmet = require('helmet');
 require('dotenv').config();
 
+
+//Accept Railway proxy
+app.set('trust proxy', 1);
+
 //Middleware
 app.use(express.json());
 app.use(helmet());
