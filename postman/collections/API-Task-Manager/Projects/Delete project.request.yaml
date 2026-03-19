@@ -1,5 +1,7 @@
 $kind: http-request
 name: Delete project
-url: ""
-method: GET
+url: "{{baseUrl}}/projects/{{projectId}}"
+method: DELETE
+headers:
+  Authorization: Bearer {{accessToken}}
 order: 4497969888621712

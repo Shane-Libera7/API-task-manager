@@ -1,5 +1,7 @@
 $kind: http-request
 name: Get One Task
-url: ""
+url: "{{baseUrl}}/projects/{{projectId}}/tasks/{{taskId}}"
 method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
 order: 4052543841771436

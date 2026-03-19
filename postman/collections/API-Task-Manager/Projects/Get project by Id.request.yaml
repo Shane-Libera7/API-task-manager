@@ -1,5 +1,7 @@
 $kind: http-request
 name: Get project by Id
-url: ""
+url: "{{baseUrl}}/projects/{{projectId}}"
 method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
 order: 4349070802680293

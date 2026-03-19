@@ -1,5 +1,5 @@
 $kind: http-request
 name: Edit Task
-url: ""
-method: GET
+url: "{{baseUrl}}/projects/{{projectId}}"
+method: PATCH
 order: 4492055339617477

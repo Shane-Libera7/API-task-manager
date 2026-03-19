@@ -1,5 +1,7 @@
 $kind: http-request
 name: Toggle Completed
-url: ""
-method: GET
+url: "{{baseUrl}}/projects/{{projectId}}/tasks/{{taskId}}/complete"
+method: PATCH
+headers:
+  Authorization: Bearer {{accessToken}}
 order: 4500503945020172

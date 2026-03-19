@@ -1,5 +1,13 @@
 $kind: http-request
 name: Change project name
-url: ""
-method: GET
+url: "{{baseUrl}}/projects/{{projectId}}"
+method: PATCH
+headers:
+  Authorization: Bearer {{accessToken}}
+body:
+  type: json
+  content: |-
+    {
+        "name": "save New York"
+    }
 order: 4497008675960731

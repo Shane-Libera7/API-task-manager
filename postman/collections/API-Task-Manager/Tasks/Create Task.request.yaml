@@ -1,5 +1,24 @@
 $kind: http-request
 name: Create Task
-url: ""
-method: GET
+url: "{{baseUrl}}/projects/{{projectId}}/tasks"
+method: POST
+headers:
+  Authorization: Bearer {{accessToken}}
+body:
+  type: json
+  content: |-
+    {
+        "title": "Get bit by super spider",
+        "description": "Go on school trip",
+        "priority": "high",
+        "due_date": "2026-02-03",
+        "completed": false
+
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const res = pm.response.json();
+      if (res.id) pm.collectionVariables.set("taskId", res.id);
+    language: text/javascript
 order: 1772636035019

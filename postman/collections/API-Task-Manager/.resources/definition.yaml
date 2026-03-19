@@ -3,3 +3,5 @@ name: API-Task-Manager
 variables:
   accessToken: ""
   refreshToken: ""
+  projectId: ""
+  taskId: ""

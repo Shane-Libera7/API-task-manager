@@ -1,5 +1,7 @@
 $kind: http-request
 name: Delete Task
-url: ""
-method: GET
+url: "{{baseUrl}}/projects/{{projectId}}/tasks/{{taskId}}"
+method: DELETE
+headers:
+  Authorization: Bearer {{accessToken}}
 order: 4496404200443487
