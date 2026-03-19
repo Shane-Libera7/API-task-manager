@@ -1,5 +1,6 @@
-const db = require('../src/db');
 require('dotenv').config({ path: '.env.test' });
+const db = require('../src/db');
+
 
 
 //Before Tests 
